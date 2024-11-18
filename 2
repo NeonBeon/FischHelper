@@ -63,6 +63,8 @@ do
             -- Teleport the player to the selected NPC's coordinates
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(npcPosition)
             print("Teleported to:", Value, npcPosition)
+            -- Deselect the dropdown after teleportation
+            moosewoodNPCs:SetValue(nil)
         else
             print("NPC not found:", Value)
         end
