@@ -31,50 +31,54 @@ do
         Content = "Will teleport to the selected NPC"
     })
 
+    -- Define the NPC locations
+    local Moosewood = {
+        Phineas = Vector3.new(470, 151, 274),
+        Angler = Vector3.new(480, 151, 299),
+        Daisy = Vector3.new(582, 166, 216),
+        Lucas = Vector3.new(446, 182, 180),
+        Bob = Vector3.new(414, 147, 265),
+        Pierre = Vector3.new(391, 136, 199),
+        Appraiser = Vector3.new(448, 151, 207),
+        Synph = Vector3.new(563, 153, 353),
+        Shipwright = Vector3.new(361, 134, 259),
+        ["Inn Keeper"] = Vector3.new(489, 151, 232)
+    }
 
+    -- Create the dropdown for NPC selection
+    local moosewoodNPCs = Tabs.NPC:AddDropdown("Dropdown", { 
+        Title = "Select NPC",
+        Values = {"Phineas", "Angler", "Daisy", "Lucas", "Bob", "Pierre", "Appraiser", "Synph", "Shipwright", "Inn Keeper"},
+        Multi = false,
+        Default = nil, -- No default value
+    })
 
-local Moosewood = {
-    Phineas = Vector3.new(470, 151, 274),
-    Angler = Vector3.new(480, 151, 299),
-    Daisy = Vector3.new(582, 166, 216),
-    Lucas = Vector3.new(446, 182, 180),
-    Bob = Vector3.new(414, 147, 265),
-    Pierre = Vector3.new(391, 136, 199),
-    Appraiser = Vector3.new(448, 151, 207),
-    Synph = Vector3.new(563, 153, 353),
-    Shipwright = Vector3.new(361, 134, 259),
-    ["Inn Keeper"] = Vector3.new(489, 151, 232)
-}
+    moosewoodNPCs:SetValue(nil)
 
-local moosewoodNPCs = Tabs.NPC:AddDropdown("Dropdown", { 
-    Title = "Select NPC",
-    Values = {"Phineas", "Angler", "Daisy", "Lucas", "Bob", "Pierre", "Appraiser", "Synph", "Shipwright", "Inn Keeper"},
-    Multi = false,
-    Default = nil, -- No default value
-})
+    -- Define the function that teleports the player to the selected NPC
+    moosewoodNPCs:OnChanged(function(Value)
+        -- Check if the selected NPC exists in the Moosewood table
+        local npcPosition = Moosewood[Value]
+        if npcPosition then
+            -- Teleport the player to the selected NPC's coordinates
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(npcPosition)
+            print("Teleported to:", Value, npcPosition)
+        else
+            print("NPC not found:", Value)
+        end
+    end)
 
-moosewoodNPCs:SetValue("nil")
+    -- Build settings section
+    InterfaceManager:SetLibrary(Fluent)
+    InterfaceManager:BuildInterfaceSection(Tabs.Settings)
 
--- Define the function that teleports the player to the selected NPC
-islandnameNPCs:OnChanged(function(Value)
-    -- Check if the selected NPC exists in the Moosewood table
-    local npcPosition = Moosewood[Value]
-    if npcPosition then
-        -- Teleport the player to the selected NPC's coordinates
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(npcPosition)
-        print("Teleported to:", Value, npcPosition)
-    else
-        print("NPC not found:", Value)
-    end
-end)
+    -- Select the first tab (NPC)
+    Window:SelectTab(1)
 
-InterfaceManager:SetLibrary(Fluent)
-InterfaceManager:BuildInterfaceSection(Tabs.Settings)
-
-Window:SelectTab(1)
-
-Fluent:Notify({
-    Title = "FischHelper",
-    Content = "The script has been loaded.",
-    Duration = 8
-})
+    -- Notify the user that the script has loaded
+    Fluent:Notify({
+        Title = "FischHelper",
+        Content = "The script has been loaded.",
+        Duration = 8
+    })
+end
