@@ -164,7 +164,7 @@ local OtherItems = {
     Coralgeode = Vector3.new(-1643, -213, -2853),
     Flippers = Vector3.new(-966, -245, -2699),
     Superflippers = Vector3.new(-966, -245, -2699),
-    Advancediving = Vector3.new(-978, -255, -2689)
+    Advancediving = Vector3.new(-978, -245, -2689)
 }
 
     -- Function to create dropdowns for a given tab
@@ -209,7 +209,7 @@ local OtherItems = {
     createDropdown(Tabs.NPC, "Depths", Depths)
     createDropdown(Tabs.Items, "Totems", Totems)
     createDropdown(Tabs.Items, "Rods", Rods)
-    createDropdown(Tabs.Items, "Other", OtherItems)
+    createDropdown(Tabs.Items, "Others", OtherItems)
 
     -- Build settings section
     InterfaceManager:SetLibrary(Fluent)
