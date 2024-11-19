@@ -187,6 +187,8 @@ local OtherItems = {
                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(position)
                 print("Teleported to:", Value, position)
                 dropdown:SetValue(nil)
+            else
+                print(title .. " not found:", Value)
             end
         end)
     end
