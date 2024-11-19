@@ -23,11 +23,16 @@ do
     Fluent:Notify({
         Title = "WARNING!!!",
         Content = "Use at your own risk",
-        SubContent = "", -- Optional
-        Duration = 10 -- Set to nil to make the notification not disappear
+        SubContent = "",
+        Duration = 10
     })
 
-    -- Define NPC Locations (example)
+    Tabs.NPC:AddParagraph({
+        Title = "Teleports you to the NPC",
+        Content = "Will teleport to the selected NPC"
+    })
+
+    -- Define NPC locations for each island
     local Moosewood = {
         Phineas = Vector3.new(470, 151, 274),
         Angler = Vector3.new(480, 151, 299),
@@ -110,63 +115,80 @@ do
         Occultus = Vector3.new(1022, -704, 1561),
     }
 
-    -- Totems Locations (example)
+    -- Define Totems
     local Totems = {
         ["Sundial"] = Vector3.new(-1150, 135, -1075),
-        ["Tempest"] = Vector3.new(34, 132, 1945),
+        ["Tempest"] = Vector3.new(37, 132, 1945),
         ["Windset"] = Vector3.new(2850, 180, 2700),
         ["Smokescreen"] = Vector3.new(2790, 140, -630),
         ["Aurora"] = Vector3.new(-1811, -137, -3282),
     }
 
-    -- Generalized dropdown function
-    local function createTeleportDropdown(tab, title, data)
-        -- Create a list of names from the data table (NPCs, Totems, etc.)
-        local names = {}
-        for name, _ in pairs(data) do
-            table.insert(names, name) -- Add the name to the list
+    -- Define Rods
+    local Rods = {
+        Training = Vector3.new(458, 151, 234),
+        Plastic = Vector3.new(454, 151, 233),
+        Carbon = Vector3.new(451, 151, 224),
+        Long = Vector3.new(484, 175, 150),
+        Fast = Vector3.new(448, 151, 222),
+        Lucky = Vector3.new(448, 151, 222),
+        Steady = Vector3.new(-1510, 142, 763),
+        Fortune = Vector3.new(-1522, 142, 770),
+        Rapid = Vector3.new(-1510, 142, 763),
+        Nocturnal = Vector3.new(-143, -516, 1142),
+        Aurora = Vector3.new(-144, -516, 1132),
+        Depths = Vector3.new(1704, -903, 1442),
+        Magnet = Vector3.new(-197, 133, 1931),
+        Kings = Vector3.new(1380, -808, -303),
+        Reinforce = Vector3.new(-991, -244, -2693),
+        Trident = Vector3.new(-1480, -225, -2338),
+        Scurvy = Vector3.new(-2826, 215, 1511),
+        Destiny = Vector3.new(980, 132, -1234),
+        Fungal = Vector3.new(2598, 133, -727),
+    }
+
+    -- Function to create dropdowns for a given tab
+    local function createDropdown(tab, title, elements)
+        local elementNames = {}
+        for name, _ in pairs(elements) do
+            table.insert(elementNames, name)
         end
 
-        -- Create the dropdown in the specified tab
         local dropdown = tab:AddDropdown(title, {
             Title = "Select " .. title,
-            Values = names,
+            Values = elementNames,
             Multi = false,
-            Default = nil, -- No default value
+            Default = nil,
         })
 
-        -- Define the function that teleports the player to the selected location
-        dropdown:OnChanged(function(selectedValue)
-            local selectedPosition = data[selectedValue]
-            if selectedPosition then
-                -- Teleport the player to the selected location's coordinates
-                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(selectedPosition)
-                print("Teleported to:", selectedValue, selectedPosition)
-                -- Deselect the dropdown after teleportation
+        dropdown:OnChanged(function(Value)
+            local position = elements[Value]
+            if position then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(position)
+                print("Teleported to:", Value, position)
                 dropdown:SetValue(nil)
             else
-                print("Location not found:", selectedValue)
+                print(title .. " not found:", Value)
             end
         end)
     end
 
-    -- Create NPC dropdowns
-    createTeleportDropdown(Tabs.NPC, "Moosewood", Moosewood)
-    createTeleportDropdown(Tabs.NPC, "Mushgrove", Mushgrove)
-    createTeleportDropdown(Tabs.NPC, "Roslit", Roslit)
-    createTeleportDropdown(Tabs.NPC, "Snowcap", Snowcap)
-    createTeleportDropdown(Tabs.NPC, "Sunstone", Sunstone)
-    createTeleportDropdown(Tabs.NPC, "Terrapin", Terrapin)
-    createTeleportDropdown(Tabs.NPC, "Statue", Statue)
-    createTeleportDropdown(Tabs.NPC, "Arch", Arch)
-    createTeleportDropdown(Tabs.NPC, "Vertigo", Vertigo)
-    createTeleportDropdown(Tabs.NPC, "Desolate Deep", DesolateDeep)
-    createTeleportDropdown(Tabs.NPC, "Desolate Pocket", DesolatePocket)
-    createTeleportDropdown(Tabs.NPC, "Forsaken", Forsaken)
-    createTeleportDropdown(Tabs.NPC, "Depths", Depths)
-
-    -- Create Totem dropdown
-    createTeleportDropdown(Tabs.Items, "Totems", Totems)
+    -- Create dropdowns for each set
+    createDropdown(Tabs.NPC, "Moosewood", Moosewood)
+    createDropdown(Tabs.NPC, "Mushgrove", Mushgrove)
+    createDropdown(Tabs.NPC, "Roslit", Roslit)
+    createDropdown(Tabs.NPC, "Snowcap", Snowcap)
+    createDropdown(Tabs.NPC, "Sunstone", Sunstone)
+    createDropdown(Tabs.NPC, "Terrapin", Terrapin)
+    createDropdown(Tabs.NPC, "Statue", Statue)
+    createDropdown(Tabs.NPC, "Arch", Arch)
+    createDropdown(Tabs.NPC, "Vertigo", Vertigo)
+    createDropdown(Tabs.NPC, "Desolate Deep", DesolateDeep)
+    createDropdown(Tabs.NPC, "Desolate Pocket", DesolatePocket)
+    createDropdown(Tabs.NPC, "Forsaken", Forsaken)
+    createDropdown(Tabs.NPC, "Depths", Depths)
+    createDropdown(Tabs.Items, "Totems", Totems)
+    createDropdown(Tabs.Items, "Rods", Rods)
 
     -- Build settings section
     InterfaceManager:SetLibrary(Fluent)
@@ -178,8 +200,7 @@ do
     -- Notify the user that the script has loaded
     Fluent:Notify({
         Title = "FischHelper",
-        Content = "The script has been loaded successfully.",
-        SubContent = "You can now teleport to NPCs and Totems.",
-        Duration = 5
+        Content = "The script has been loaded.",
+        Duration = 8
     })
 end
