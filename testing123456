@@ -32,6 +32,12 @@ do
         Content = "Will teleport to the selected NPC"
     })
 
+    Tabs.Items:AddParagraph({
+        Title = "PLEASE READ",
+        Content = "For some of the items you are required to complete their tasks
+    Example : You need to open the gates for trident and depths."
+    })
+
     -- Define NPC locations for each island
     local Moosewood = {
         Phineas = Vector3.new(470, 151, 274),
@@ -137,14 +143,14 @@ do
         Rapid = Vector3.new(-1510, 142, 763),
         Nocturnal = Vector3.new(-143, -516, 1142),
         Aurora = Vector3.new(-144, -516, 1132),
-        Depths = Vector3.new(1704, -903, 1442),
+        Depths(gate) = Vector3.new(1704, -903, 1442),
         Magnet = Vector3.new(-197, 133, 1931),
         Kings = Vector3.new(1380, -808, -303),
         Reinforce = Vector3.new(-991, -244, -2693),
-        Trident = Vector3.new(-1480, -225, -2338),
+        Trident(gate) = Vector3.new(-1480, -225, -2338),
         Scurvy = Vector3.new(-2826, 215, 1511),
-        Destiny = Vector3.new(980, 132, -1234),
-        Fungal = Vector3.new(2598, 133, -727),
+        Destiny(quest) = Vector3.new(980, 132, -1234),
+        Fungal(quest) = Vector3.new(2598, 133, -727),
     }
 
     -- Function to create dropdowns for a given tab
