@@ -181,15 +181,23 @@ local OtherItems = {
             Default = nil,
         })
 
-        dropdown:OnChanged(function(Value)
-            local position = elements[Value]
-            if position then
-                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(position)
-                print("Teleported to:", Value, position)
-                dropdown:SetValue(nil)
-            end
-        end)
+dropdown:OnChanged(function(Value)
+    local position = elements[Value]
+    if position then
+        local character = game.Players.LocalPlayer.Character
+        local rootPart = character:FindFirstChild("HumanoidRootPart")
+        
+        if rootPart then
+            -- Preserve the current orientation
+            local currentOrientation = rootPart.CFrame - rootPart.CFrame.Position
+            -- Apply the teleportation while preserving orientation
+            rootPart.CFrame = CFrame.new(position) * currentOrientation
+            print("Teleported to:", Value, position)
+        end
+        
+        dropdown:SetValue(nil)
     end
+end)
 
     -- Create dropdowns for each set
     createDropdown(Tabs.NPC, "Moosewood", Moosewood)
