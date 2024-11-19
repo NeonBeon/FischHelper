@@ -35,7 +35,7 @@ do
     Tabs.Items:AddParagraph({
         Title = "PLEASE READ",
         Content = [[For some of the items you are required to complete their tasks.
-    Example: You need to open the gates for trident and depths.]]
+Example: You need to open the gates for trident and depths.]]
     })
 
     -- Define NPC locations for each island
