@@ -27,12 +27,7 @@ do
         Duration = 10 -- Set to nil to make the notification not disappear
     })
 
-    Tabs.NPC:AddParagraph({
-        Title = "Teleports you to the NPC",
-        Content = "Will teleport to the selected NPC"
-    })
-
-    -- Define the NPCs and their locations for each island
+    -- Define NPC Locations (example)
     local Moosewood = {
         Phineas = Vector3.new(470, 151, 274),
         Angler = Vector3.new(480, 151, 299),
@@ -115,49 +110,63 @@ do
         Occultus = Vector3.new(1022, -704, 1561),
     }
 
-    -- Define each island's NPCs dropdown
-    local function createIslandDropdown(islandName, npcTable)
-        local npcNames = {}
-        for npcName, _ in pairs(npcTable) do
-            table.insert(npcNames, npcName) -- Add the NPC name to the dropdown list
+    -- Totems Locations (example)
+    local Totems = {
+        ["Sundial"] = Vector3.new(-1150, 135, -1075),
+        ["Tempest"] = Vector3.new(-37, 132, 1945),
+        ["Windset"] = Vector3.new(2850, 180, 2700),
+        ["Smokescreen"] = Vector3.new(2790, 140, -630),
+        ["Aurora"] = Vector3.new(-1811, -137, -3282),
+    }
+
+    -- Generalized dropdown function
+    local function createTeleportDropdown(tab, title, data)
+        -- Create a list of names from the data table (NPCs, Totems, etc.)
+        local names = {}
+        for name, _ in pairs(data) do
+            table.insert(names, name) -- Add the name to the list
         end
 
-        local islandNPCsDropdown = Tabs.NPC:AddDropdown(islandName, {
-            Title = "Select NPC in " .. islandName,
-            Values = npcNames,
+        -- Create the dropdown in the specified tab
+        local dropdown = tab:AddDropdown(title, {
+            Title = "Select " .. title,
+            Values = names,
             Multi = false,
             Default = nil, -- No default value
         })
 
-        -- Define the function that teleports the player to the selected NPC
-        islandNPCsDropdown:OnChanged(function(Value) 
-            local npcPosition = npcTable[Value]
-            if npcPosition then
-                -- Teleport the player to the selected NPC's coordinates
-                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(npcPosition)
-                print("Teleported to:", Value, npcPosition)
+        -- Define the function that teleports the player to the selected location
+        dropdown:OnChanged(function(selectedValue)
+            local selectedPosition = data[selectedValue]
+            if selectedPosition then
+                -- Teleport the player to the selected location's coordinates
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(selectedPosition)
+                print("Teleported to:", selectedValue, selectedPosition)
                 -- Deselect the dropdown after teleportation
-                islandNPCsDropdown:SetValue(nil)
+                dropdown:SetValue(nil)
             else
-                print("NPC not found:", Value)
+                print("Location not found:", selectedValue)
             end
         end)
     end
 
-    -- Create dropdowns for each island
-    createIslandDropdown("Moosewood", Moosewood)
-    createIslandDropdown("Mushgrove", Mushgrove)
-    createIslandDropdown("Roslit", Roslit)
-    createIslandDropdown("Snowcap", Snowcap)
-    createIslandDropdown("Sunstone", Sunstone)
-    createIslandDropdown("Terrapin", Terrapin)
-    createIslandDropdown("Statue", Statue)
-    createIslandDropdown("Arch", Arch)
-    createIslandDropdown("Vertigo", Vertigo)
-    createIslandDropdown("Desolate Deep", DesolateDeep)
-    createIslandDropdown("Desolate Pocket", DesolatePocket)
-    createIslandDropdown("Forsaken", Forsaken)
-    createIslandDropdown("Depths", Depths)
+    -- Create NPC dropdowns
+    createTeleportDropdown(Tabs.NPC, "Moosewood", Moosewood)
+    createTeleportDropdown(Tabs.NPC, "Mushgrove", Mushgrove)
+    createTeleportDropdown(Tabs.NPC, "Roslit", Roslit)
+    createTeleportDropdown(Tabs.NPC, "Snowcap", Snowcap)
+    createTeleportDropdown(Tabs.NPC, "Sunstone", Sunstone)
+    createTeleportDropdown(Tabs.NPC, "Terrapin", Terrapin)
+    createTeleportDropdown(Tabs.NPC, "Statue", Statue)
+    createTeleportDropdown(Tabs.NPC, "Arch", Arch)
+    createTeleportDropdown(Tabs.NPC, "Vertigo", Vertigo)
+    createTeleportDropdown(Tabs.NPC, "Desolate Deep", DesolateDeep)
+    createTeleportDropdown(Tabs.NPC, "Desolate Pocket", DesolatePocket)
+    createTeleportDropdown(Tabs.NPC, "Forsaken", Forsaken)
+    createTeleportDropdown(Tabs.NPC, "Depths", Depths)
+
+    -- Create Totem dropdown
+    createTeleportDropdown(Tabs.Items, "Totems", Totems)
 
     -- Build settings section
     InterfaceManager:SetLibrary(Fluent)
@@ -169,7 +178,8 @@ do
     -- Notify the user that the script has loaded
     Fluent:Notify({
         Title = "FischHelper",
-        Content = "The script has been loaded.",
-        Duration = 8
+        Content = "The script has been loaded successfully.",
+        SubContent = "You can now teleport to NPCs and Totems.",
+        Duration = 5
     })
 end
