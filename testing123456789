@@ -153,6 +153,20 @@ local Rods = {
     ["Fungal (quest)"] = Vector3.new(2598, 133, -727),
 }
 
+local OtherItems = {
+    Crabcage = Vector3.new(476, 151, 232),
+    GPS = Vector3.new(513, 151, 282),
+    Fishradar = Vector3.new(368, 135, 271),
+    Basicdiving = Vector3.new(372, 135, 248),
+    Conch = Vector3.new(-1632, -214, -2861),
+    Glider = Vector3.new(-1643, -213, -2853),
+    Tidebreaker = Vector3.new(-1643, -213, -2853),
+    Coralgeode = Vector3.new(-1643, -213, -2853),
+    Flippers = Vector3.new(-966, -245, -2699),
+    Superflippers = Vector3.new(-966, -245, -2699),
+    Advancediving = Vector3.new(-978, -255, -2689)
+}
+
     -- Function to create dropdowns for a given tab
     local function createDropdown(tab, title, elements)
         local elementNames = {}
@@ -195,6 +209,7 @@ local Rods = {
     createDropdown(Tabs.NPC, "Depths", Depths)
     createDropdown(Tabs.Items, "Totems", Totems)
     createDropdown(Tabs.Items, "Rods", Rods)
+    createDropdown(Tabs.Items, "Other", OtherItems)
 
     -- Build settings section
     InterfaceManager:SetLibrary(Fluent)
