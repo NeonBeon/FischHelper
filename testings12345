@@ -181,14 +181,15 @@ local OtherItems = {
             Default = nil,
         })
 
-dropdown:OnChanged(function(Value)
-    local position = elements[Value]
-    if position then
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(position)
-        print("Teleported to:", Value, position)
-        dropdown:SetValue(nil)
+        dropdown:OnChanged(function(Value)
+            local position = elements[Value]
+            if position then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(position)
+                print("Teleported to:", Value, position)
+                dropdown:SetValue(nil)
+            end
+        end)
     end
-end)
 
     -- Create dropdowns for each set
     createDropdown(Tabs.NPC, "Moosewood", Moosewood)
