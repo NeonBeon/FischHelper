@@ -113,7 +113,7 @@ do
     -- Totems Locations (example)
     local Totems = {
         ["Sundial"] = Vector3.new(-1150, 135, -1075),
-        ["Tempest"] = Vector3.new(-37, 132, 1945),
+        ["Tempest"] = Vector3.new(-34, 132, 1945),
         ["Windset"] = Vector3.new(2850, 180, 2700),
         ["Smokescreen"] = Vector3.new(2790, 140, -630),
         ["Aurora"] = Vector3.new(-1811, -137, -3282),
