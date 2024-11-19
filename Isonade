@@ -1,0 +1,43 @@
+local player = game.Players.LocalPlayer
+local target = game:GetService("Workspace").zones.fishing.Isonade
+local platform
+
+-- Function to create a platform
+local function createPlatform(position)
+    platform = Instance.new("Part")
+    platform.Size = Vector3.new(10, 1, 10) -- Size of the platform (10x10 units)
+    platform.Position = position + Vector3.new(0, -0.5, 0) -- Centered with slight downward adjustment
+    platform.Anchored = true
+    platform.CanCollide = true
+    platform.BrickColor = BrickColor.new("Grey") -- Set the color to gray
+    platform.Parent = workspace -- Add it to the workspace
+end
+
+-- Function to handle checking the target's existence
+local function monitorTarget()
+    game:GetService("RunService").Heartbeat:Connect(function()
+        if not target or not target.Parent then
+            -- If target is not found or its parent is nil (meaning it's no longer in the workspace), destroy the platform
+            if platform then
+                platform:Destroy()
+            end
+        end
+    end)
+end
+
+-- Check if the target exists
+if target and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+    -- Calculate the target position with Y level set to 140
+    local targetPosition = Vector3.new(target.Position.X, 140, target.Position.Z)
+
+    -- Teleport the player's character to the target position
+    player.Character.HumanoidRootPart.CFrame = CFrame.new(targetPosition)
+
+    -- Create a platform at the target position
+    createPlatform(targetPosition)
+
+    -- Start monitoring the target
+    monitorTarget()
+else
+    warn("Could not teleport. Target not found or HumanoidRootPart missing.")
+end
