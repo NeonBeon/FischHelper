@@ -34,8 +34,8 @@ do
 
     Tabs.Items:AddParagraph({
         Title = "PLEASE READ",
-        Content = "For some of the items you are required to complete their tasks
-    Example : You need to open the gates for trident and depths."
+        Content = [[For some of the items you are required to complete their tasks.
+    Example: You need to open the gates for trident and depths.]]
     })
 
     -- Define NPC locations for each island
@@ -131,27 +131,27 @@ do
     }
 
     -- Define Rods
-    local Rods = {
-        Training = Vector3.new(458, 151, 234),
-        Plastic = Vector3.new(454, 151, 233),
-        Carbon = Vector3.new(451, 151, 224),
-        Long = Vector3.new(484, 175, 150),
-        Fast = Vector3.new(448, 151, 222),
-        Lucky = Vector3.new(448, 151, 222),
-        Steady = Vector3.new(-1510, 142, 763),
-        Fortune = Vector3.new(-1522, 142, 770),
-        Rapid = Vector3.new(-1510, 142, 763),
-        Nocturnal = Vector3.new(-143, -516, 1142),
-        Aurora = Vector3.new(-144, -516, 1132),
-        Depths(gate) = Vector3.new(1704, -903, 1442),
-        Magnet = Vector3.new(-197, 133, 1931),
-        Kings = Vector3.new(1380, -808, -303),
-        Reinforce = Vector3.new(-991, -244, -2693),
-        Trident(gate) = Vector3.new(-1480, -225, -2338),
-        Scurvy = Vector3.new(-2826, 215, 1511),
-        Destiny(quest) = Vector3.new(980, 132, -1234),
-        Fungal(quest) = Vector3.new(2598, 133, -727),
-    }
+local Rods = {
+    Training = Vector3.new(458, 151, 234),
+    Plastic = Vector3.new(454, 151, 233),
+    Carbon = Vector3.new(451, 151, 224),
+    Long = Vector3.new(484, 175, 150),
+    Fast = Vector3.new(448, 151, 222),
+    Lucky = Vector3.new(448, 151, 222),
+    Steady = Vector3.new(-1510, 142, 763),
+    Fortune = Vector3.new(-1522, 142, 770),
+    Rapid = Vector3.new(-1510, 142, 763),
+    Nocturnal = Vector3.new(-143, -516, 1142),
+    Aurora = Vector3.new(-144, -516, 1132),
+    ["Depths (gate)"] = Vector3.new(1704, -903, 1442),
+    Magnet = Vector3.new(-197, 133, 1931),
+    Kings = Vector3.new(1380, -808, -303),
+    Reinforce = Vector3.new(-991, -244, -2693),
+    ["Trident (gate)"] = Vector3.new(-1480, -225, -2338),
+    Scurvy = Vector3.new(-2826, 215, 1511),
+    ["Destiny (quest)"] = Vector3.new(980, 132, -1234),
+    ["Fungal (quest)"] = Vector3.new(2598, 133, -727),
+}
 
     -- Function to create dropdowns for a given tab
     local function createDropdown(tab, title, elements)
