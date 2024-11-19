@@ -13,7 +13,7 @@ local Window = Fluent:CreateWindow({
 
 local Tabs = {
     NPC = Window:AddTab({ Title = "NPC", Icon = "user" }),
-    Totems = Window:AddTab({ Title = "Totems", Icon = "box" }),  -- Changed from Items to Totems tab
+    Items = Window:AddTab({ Title = "Items", Icon = "box"}),
     Settings = Window:AddTab({ Title = "Settings", Icon = "settings" })
 }
 
@@ -115,37 +115,7 @@ do
         Occultus = Vector3.new(1022, -704, 1561),
     }
 
-    -- Define the Totems and their coordinates
-    local Totems = {
-        ["Sundial"] = Vector3.new(-1150, 135, -1075),
-        ["Tempest"] = Vector3.new(-37, 132, 1945),
-        ["Windset"] = Vector3.new(2850, 180, 2700),
-        ["Smokescreen"] = Vector3.new(2790, 140, -630),
-        ["Aurora"] = Vector3.new(-1811, -137, -3282)
-    }
-
-    -- Create a dropdown in the Totems tab for selecting a totem
-    local totemDropdown = Tabs.Totems:AddDropdown("Totem Selection", {
-        Title = "Select a Totem",
-        Values = table.keys(Totems),  -- Get the keys (totem names) for the dropdown
-        Multi = false,
-        Default = nil, -- No default value
-    })
-
-    -- Define the function to teleport to the selected totem's location
-    totemDropdown:OnChanged(function(Value)
-        local totemPosition = Totems[Value]
-        if totemPosition then
-            print("You selected the totem:", Value)
-            -- Teleport the player to the selected totem's coordinates
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(totemPosition)
-            print("Teleported to totem location:", totemPosition)
-        else
-            print("No totem selected.")
-        end
-    end)
-
-    -- Define each island's NPCs dropdown (same as in your original code)
+    -- Define each island's NPCs dropdown
     local function createIslandDropdown(islandName, npcTable)
         local npcNames = {}
         for npcName, _ in pairs(npcTable) do
